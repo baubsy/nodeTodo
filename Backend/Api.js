@@ -1,4 +1,9 @@
+const faunaKey = require('../secrets.js');
 
-const faunadb = require("faunadb");
+function todoCreate(res){
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('Hello World');
+}
 
-import { faunaKey } from "../secrets";
+module.exports = todoCreate;
