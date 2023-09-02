@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/baubsy/nodeTodo/issues"
   },
-  "homepage": "https://github.com/baubsy/nodeTodo#readme"
+  "homepage": "https://github.com/baubsy/nodeTodo#readme",
+  "dependencies": {
+    "faunadb": "^4.8.0"
+  }
 }
