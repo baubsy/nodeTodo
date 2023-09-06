@@ -14,6 +14,7 @@ const client = new faunadb.Client({
 async function route(req, res){
     let title = "temp title"
     let list = [{item: "first item", complete: true}, {item: "first item", complete: false}]
+    let user = "dummyUser";
 
     let myUrl = url.parse(req.url);
     if(req.method == 'POST'){
@@ -23,7 +24,8 @@ async function route(req, res){
                     q.Create(q.Collection("lists"), {
                         data: {
                             title: title,
-                            list: list
+                            list: list,
+                            user: user
                         }
                     })
                 )
@@ -39,6 +41,8 @@ async function route(req, res){
             }
             
         }
+    } else if(req.method == 'GET'){
+        
     }
     // res.statusCode = 200;
     // res.setHeader('Content-Type', 'text/plain');
