@@ -28,10 +28,13 @@ async function route(req, res){
                     })
                 )
                 console.log('list created');
-                //res.status(200);
+                res.writeHead(200, {'Content-Type': 'application/json'})
+                res.end();
             }
             catch (error){
                 console.log("fauna error");
+                res.writeHead(500);
+                res.end();
                 //res.status(500).json({error: error.message});
             }
             
