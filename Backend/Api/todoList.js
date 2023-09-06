@@ -18,12 +18,17 @@ async function todoList(req, res){
     let myUrl = url.parse(req.url);
     if(req.method == 'POST'){  
             try {
+                let id = 0;
+                await client.query(
+                    q.NewId()
+                ).then((x) => id = x)
                 const dbs = await client.query(
                     q.Create(q.Collection("lists"), {
                         data: {
                             title: title,
                             list: list,
-                            user: user
+                            user: user,
+                            id: id
                         }
                     })
                 )
