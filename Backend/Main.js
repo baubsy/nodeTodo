@@ -1,12 +1,12 @@
 const http = require("http");
-const todoCreate = require('./Api.js');
+const route = require('./Api.js');
 
 const port = 3123;
 const hostname = '0.0.0.0';
 const server = http.createServer(cb);
 
 function cb(req, res){
-    todoCreate(res);
+    route(req, res);
 }
 console.log("listening");
 server.listen(port, hostname);

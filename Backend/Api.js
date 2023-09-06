@@ -1,9 +1,45 @@
 const faunaKey = require('../secrets.js');
+const {Ref} = require('faunadb');
+const faunadb = require("faunadb");
+const url = require('url');
+const http = require("http");
 
-function todoCreate(res){
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello World');
+const q = faunadb.query;
+
+const client = new faunadb.Client({
+    secret: faunaKey,
+    domain: "db.fauna.com"
+})
+
+async function route(req, res){
+    let title = "temp title"
+    let list = [{item: "first item", complete: true}, {item: "first item", complete: false}]
+
+    let myUrl = url.parse(req.url);
+    if(req.method == 'POST'){
+        if(myUrl.pathname == '/api/todoList'){
+            try {
+                const dbs = await client.query(
+                    q.Create(q.Collection("lists"), {
+                        data: {
+                            title: title,
+                            list: list
+                        }
+                    })
+                )
+                console.log('list created');
+                //res.status(200);
+            }
+            catch (error){
+                console.log("fauna error");
+                //res.status(500).json({error: error.message});
+            }
+            
+        }
+    }
+    // res.statusCode = 200;
+    // res.setHeader('Content-Type', 'text/plain');
+    // res.end('Hello World');
 }
 
-module.exports = todoCreate;
+module.exports = route;
