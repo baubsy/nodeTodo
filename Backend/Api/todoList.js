@@ -11,23 +11,17 @@ const client = new faunadb.Client({
 });
 
 async function todoList(req, res) {
-    let title = "temp title";
-    let list = [
-        { item: "first item", complete: true },
-        { item: "first item", complete: false },
-    ];
-    let user = "dummyUser";
-
     let myUrl = url.parse(req.url);
     if (req.method == "POST") {
+        let reqData;
+        await req.on("data", (data) => {
+            reqData = JSON.parse(data.toString());
+            console.log(reqData);
+        });
         try {
             const dbs = await client.query(
                 q.Create(q.Collection("lists"), {
-                    data: {
-                        title: title,
-                        list: list,
-                        user: user,
-                    },
+                    data: reqData,
                 })
             );
             console.log("list created");
