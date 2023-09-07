@@ -39,14 +39,22 @@ async function todoList(req, res) {
             res.end();
         }
     } else if (req.method == "GET") {
-        let dummyId = "375080984463278161";
+        //gets id from url path
+        let reg = /[0-9]+/i;
+        let id = myUrl.pathname.slice(myUrl.pathname.search(reg));
+        console.log(id);
+        //console.log(myUrl.pathname)
         //get id from request, include data in response
         try {
             client
-                .query(q.Get(q.Ref(q.Collection("lists"), dummyId)))
-                .then((ret) => console.group(ret));
-            res.writeHead(200, { "Content-Type": "application/json" });
-            res.end();
+                .query(q.Get(q.Ref(q.Collection("lists"), id)))
+                .then((ret) => {
+                    res.writeHead(200, { "Content-Type": "application/json" });
+                    res.end(JSON.stringify(ret.data));
+                    console.log(ret.data);
+                });
+            // res.writeHead(200, { "Content-Type": "application/json" });
+            // res.end(ret.data);
         } catch (error) {
             console.log("fauna error");
             res.writeHead(500);

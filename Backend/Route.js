@@ -5,7 +5,8 @@ const todoList = require("./Api/todoList.js");
 
 async function route(req, res) {
     let myUrl = url.parse(req.url);
-    if (myUrl.pathname == "/api/todoList") {
+    console.log(myUrl.pathname);
+    if (myUrl.pathname.includes("/api/todoList")) {
         todoList(req, res);
     }
 }
