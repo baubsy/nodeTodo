@@ -74,6 +74,21 @@ async function todoList(req, res) {
             res.writeHead(500);
             res.end();
         }
+    } else if (req.method == "DELETE"){
+        let reg = /[0-9]+/i;
+        let id = myUrl.pathname.slice(myUrl.pathname.search(reg));
+
+        try{
+            client.query(
+                q.Delete(q.Ref(q.Collection('lists'), id))
+            )
+            res.writeHead(200);
+            res.end();
+        } catch(error){
+            console.log("fauna error");
+            res.writeHead(500);
+            res.end();
+        }
     }
 }
 
