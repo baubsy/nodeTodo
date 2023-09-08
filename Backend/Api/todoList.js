@@ -59,6 +59,10 @@ async function todoList(req, res) {
         let id = myUrl.pathname.slice(myUrl.pathname.search(reg));
 
         let reqData = { putTest: "dummy" };
+        await req.on("data", (data) => {
+            reqData = JSON.parse(data.toString());
+            console.log(reqData);
+        });
         try {
             client.query(
                 q.Replace(q.Ref(q.Collection("lists"), id), { data: reqData })
