@@ -36,9 +36,7 @@ async function todoList(req, res) {
         //gets id from url path
         let reg = /[0-9]+/i;
         let id = myUrl.pathname.slice(myUrl.pathname.search(reg));
-        console.log(id);
-        //console.log(myUrl.pathname)
-        //get id from request, include data in response
+
         try {
             client
                 .query(q.Get(q.Ref(q.Collection("lists"), id)))
@@ -47,8 +45,6 @@ async function todoList(req, res) {
                     res.end(JSON.stringify(ret.data));
                     console.log(ret.data);
                 });
-            // res.writeHead(200, { "Content-Type": "application/json" });
-            // res.end(ret.data);
         } catch (error) {
             console.log("fauna error");
             res.writeHead(500);
@@ -74,17 +70,15 @@ async function todoList(req, res) {
             res.writeHead(500);
             res.end();
         }
-    } else if (req.method == "DELETE"){
+    } else if (req.method == "DELETE") {
         let reg = /[0-9]+/i;
         let id = myUrl.pathname.slice(myUrl.pathname.search(reg));
 
-        try{
-            client.query(
-                q.Delete(q.Ref(q.Collection('lists'), id))
-            )
+        try {
+            client.query(q.Delete(q.Ref(q.Collection("lists"), id)));
             res.writeHead(200);
             res.end();
-        } catch(error){
+        } catch (error) {
             console.log("fauna error");
             res.writeHead(500);
             res.end();
