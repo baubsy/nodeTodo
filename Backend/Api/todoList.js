@@ -54,6 +54,24 @@ async function todoList(req, res) {
             res.writeHead(500);
             res.end();
         }
+    } else if(req.method == "PUT"){
+        let reg = /[0-9]+/i;
+        let id = myUrl.pathname.slice(myUrl.pathname.search(reg));
+
+        let reqData = {putTest: "dummy"}
+        try{
+            client.query(
+                q.Replace(
+                    q.Ref(q.Collection('lists'), id), {data: reqData}
+                )
+            )
+            res.writeHead(200)
+            res.end();
+        } catch(error){
+            console.log("fauna error");
+            res.writeHead(500);
+            res.end();
+        }
     }
 }
 
