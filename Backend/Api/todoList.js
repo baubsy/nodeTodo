@@ -4,6 +4,7 @@ const faunadb = require("faunadb");
 const url = require("url");
 
 const q = faunadb.query;
+const headers = {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': '*', "Content-Type": "application/json"}
 
 const client = new faunadb.Client({
     secret: faunaKey,
@@ -12,6 +13,10 @@ const client = new faunadb.Client({
 
 async function todoList(req, res) {
     let myUrl = url.parse(req.url);
+    console.log("get debug3");
+    console.log(req.method);
+
+    
     if (req.method == "POST") {
         let reqData;
         await req.on("data", (data) => {
@@ -34,6 +39,7 @@ async function todoList(req, res) {
         }
     } else if (req.method == "GET") {
         //gets id from url path
+        console.log("get debug")
         let reg = /[0-9]+/i;
         let id = myUrl.pathname.slice(myUrl.pathname.search(reg));
 
@@ -41,7 +47,7 @@ async function todoList(req, res) {
             client
                 .query(q.Get(q.Ref(q.Collection("lists"), id)))
                 .then((ret) => {
-                    res.writeHead(200, { "Content-Type": "application/json" });
+                    res.writeHead(200, headers);
                     res.end(JSON.stringify(ret.data));
                     console.log(ret.data);
                 });
