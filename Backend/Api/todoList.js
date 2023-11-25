@@ -69,7 +69,7 @@ async function todoList(req, res) {
             client.query(
                 q.Replace(q.Ref(q.Collection("lists"), id), { data: reqData })
             );
-            res.writeHead(200);
+            res.writeHead(200, headers);
             res.end();
         } catch (error) {
             console.log("fauna error");
@@ -82,7 +82,7 @@ async function todoList(req, res) {
 
         try {
             client.query(q.Delete(q.Ref(q.Collection("lists"), id)));
-            res.writeHead(200);
+            res.writeHead(200, headers);
             res.end();
         } catch (error) {
             console.log("fauna error");
