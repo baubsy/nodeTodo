@@ -13,15 +13,15 @@ const client = new faunadb.Client({
 
 async function todoList(req, res) {
     let myUrl = url.parse(req.url);
-    console.log("get debug3");
-    console.log(req.method);
+    //console.log("get debug3");
+    //console.log(req.method);
 
     
     if (req.method == "POST") {
         let reqData;
         await req.on("data", (data) => {
             reqData = JSON.parse(data.toString());
-            console.log(reqData);
+            //console.log(reqData);
         });
         try {
             const dbs = await client.query(
@@ -39,7 +39,7 @@ async function todoList(req, res) {
         }
     } else if (req.method == "GET") {
         //gets id from url path
-        console.log("get debug")
+        //console.log("get debug")
         let reg = /[0-9]+/i;
         let id = myUrl.pathname.slice(myUrl.pathname.search(reg));
 
