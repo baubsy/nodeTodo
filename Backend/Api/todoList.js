@@ -1,7 +1,25 @@
-const faunaKey = require("../../secrets.js");
+const dataBaseSecrets = require("../../secrets.js");
+const faunaKey = "temp dummy"
 const { Ref } = require("faunadb");
 const faunadb = require("faunadb");
 const url = require("url");
+const Sequelize = require("sequelize");
+
+const sequelize = new Sequelize(
+    dataBaseSecrets.name,
+    dataBaseSecrets.user,
+    dataBaseSecrets.pass,
+    {
+        host: 'localhost',
+        dialect: 'mysql'
+    }
+);
+
+sequelize.authenticate().then(() => {
+  console.log('mysql connected')
+}).catch((error) => {
+  console.log('error');
+})
 
 const q = faunadb.query;
 const headers = {'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': '*', "Content-Type": "application/json"}

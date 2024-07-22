@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/baubsy/nodeTodo#readme",
   "dependencies": {
-    "faunadb": "^4.8.0"
+    "faunadb": "^4.8.0",
+    "mysql2": "^3.10.3",
+    "sequelize": "^6.37.3",
+    "sqlite3": "^5.1.7"
   }
 }
