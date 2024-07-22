@@ -25,6 +25,10 @@ const list = sequelize.define("list", {
     user: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    list: {
+        type: DataTypes.JSON,
+        allowNull: false
     }
 })
 
