@@ -78,9 +78,22 @@ async function todoList(req, res) {
                //TODO retrieve lists from mysql
                const tempList = {
                 title: "temp",
-                
+                list: [
+                    {
+                    "item": "first item",
+                    "complete": true,
+                    "id": 1
+                    },
+                    {
+                        "item": "second item",
+                        "complete": false,
+                        "id": 2
+                        }
+            ]
                }
-               res.end(JSON.stringify(ret.data));
+               res.writeHead(200, headers)
+               //res.end(JSON.stringify(ret.data));
+               res.end(JSON.stringify(tempList));
                 console.log(ret.data);
         } catch (error) {
             console.log("database error");
