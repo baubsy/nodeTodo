@@ -115,7 +115,7 @@ async function todoList(req, res) {
         },
       })
         .then((dbRes) => {
-          console.log(dbRes);
+          //console.log(dbRes);
           res.writeHead(200, headers);
           res.end(JSON.stringify(dbRes))
         })
@@ -149,6 +149,15 @@ async function todoList(req, res) {
             );
             */
       //TODO write code to update entry in mysql
+      console.log("req data")
+      console.log(reqData)
+      await List.update(
+        {
+            title: reqData.title,
+            list: JSON.stringify(reqData.list)
+        },
+        {where: {id: reqData.id}}
+      )
       res.writeHead(200, headers);
       res.end();
     } catch (error) {
