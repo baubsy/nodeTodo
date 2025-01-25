@@ -61,10 +61,35 @@ async function todoList(req, res) {
         }
     } else if (req.method == "GET") {
         //gets id from url path
-        //console.log("get debug")
+        console.log("get debug")
         let reg = /[0-9]+/i;
         let id = myUrl.pathname.slice(myUrl.pathname.search(reg));
 
+        //debug get response
+        //delete and convert try catch block to use seqelize isntead of fauna
+        const tempList = {
+            title: "temp",
+            list: [
+                {
+                "item": "first item",
+                "complete": true,
+                "id": 1
+                },
+                {
+                    "item": "second item",
+                    "complete": false,
+                    "id": 2
+                    }
+        ]
+           }
+           /* Debug get response, works
+           res.writeHead(200, headers)
+           //res.end(JSON.stringify(ret.data));
+           res.end(JSON.stringify(tempList));
+            //console.log(ret.data);
+            console.log("get fin")
+            */
+          
         try {
             /*
             client
@@ -76,27 +101,14 @@ async function todoList(req, res) {
                 });
                 */
                //TODO retrieve lists from mysql
-               const tempList = {
-                title: "temp",
-                list: [
-                    {
-                    "item": "first item",
-                    "complete": true,
-                    "id": 1
-                    },
-                    {
-                        "item": "second item",
-                        "complete": false,
-                        "id": 2
-                        }
-            ]
-               }
+               
                res.writeHead(200, headers)
                //res.end(JSON.stringify(ret.data));
                res.end(JSON.stringify(tempList));
                 console.log(ret.data);
+                console.log("get fin")
         } catch (error) {
-            console.log("database error");
+            console.log("get database error");
             res.writeHead(500);
             res.end();
         }

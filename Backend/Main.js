@@ -12,11 +12,13 @@ function cb(req, res){
         'Access-Control-Max-Age': 2592000,
         'Access-Control-Allow-Headers' : "*"
       };
+      /*TEMP COMMENTING OUT
     if (req.method === 'OPTIONS') {
         res.writeHead(204, headers);
         res.end();
         return;
       }
+        */
     route(req, res);
 }
 console.log("listening");
