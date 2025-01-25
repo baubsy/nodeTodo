@@ -108,22 +108,24 @@ async function todoList(req, res) {
                     console.log(ret.data);
                 });
                 */
-      //TODO retrieve lists from mysql
+      //TODO retrieve lists from mysql, format DB response before sending?
       List.findAll({
         where: {
           user: "A",
         },
       })
-        .then((res) => {
-          console.log(res);
+        .then((dbRes) => {
+          console.log(dbRes);
+          res.writeHead(200, headers);
+          res.end(JSON.stringify(dbRes))
         })
         .catch((error) => {
           console.error("Failed to get data: ", error);
         });
 
-      res.writeHead(200, headers);
+      //res.writeHead(200, headers);
       //res.end(JSON.stringify(ret.data));
-      res.end(JSON.stringify(tempList));
+      //res.end(JSON.stringify(tempList));
       //console.log(ret.data);
       //console.log("get fin");
     } catch (error) {
